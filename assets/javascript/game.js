@@ -3,63 +3,103 @@
 
 var computerChoices = ["a", "b", "c", "d", "e", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "x", "y", "z"];
 
+//Variables: Guesses Letter Array
+
+var guessedLetters = [];
+
 // Variables: Game Tallies
 
 var Win = 0;
 var Loss = 0;
-var Left = 9;
-// var Sofar = ""
+var Guesses = 9;
+
 
 // Variables: HTML References
 
 var uGuess = document.getElementById("userGuess");
-var cGuess = document.getElementById("computerGuess");
 var wTally = document.getElementById("winsTally");
 var lTally = document.getElementById("lossesTally");
 var gLeft = document.getElementById("guessesLeft");
-// gSofar = document.getElementById("guessesSofar"),
+var cGuess = document.getElementById("computerGuess");
 
 // Variables: The Computer's Guess
 
 var cpGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)]
 
-// Functions: Reset Game
+// Variables: Convert the Computer's Guess to a keycode
 
-function reset() {
-    location.reload();
-}
+var cpKey = cpGuess.which || cpGuess.keycode;
+
+// Function: Refresh the Computer's choice
+
+function cpRefresh() {
+    cpGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+};
+
+// Function: Empty the User guess array
+
+function guessRefresh() {
+    guessedLetters= [];
+};
+
+// function guessRecord() {
+//     guessedLetters.toString();
+// };
 
 // This is the User's Guess
 
 document.onkeyup = function(event) {
-    var usGuess = event.key
+    var usGuess = event.key;
 
-    // This Loop finds the user's choice within the computerChoice Array
+    //Function: Grab the Keycode for the user Guess
 
-    var i;
-    for (i=0; i < computerChoices.length; i++) {
-        usGuess === computerChoices[i];
-    }
+    var key = event.which || event.keycode;
 
-    // This is the main game Logic
-    
-    if ( usGuess === cpGuess ) {
-        Win++;
+    // First, Check if usGuess is a lowercase letter
 
-    } else if (usGuess !== cpGuess) {
-        Left--;
-    }
+    if ( (key >= 65 ) && (key <= 90 ) ) {
+
+        //Then, check to see if the user guess matches the computer's guess
+
+        if ( usGuess === cpGuess ) {
+            Win++,
+            cpRefresh(),
+            guessRefresh();
+
+        //Then, see if the user guess is in the guessedLetters array. If not, add it and subract a guess. 
+
+        } else if ( guessedLetters.indexOf(usGuess) === -1 ) {
+            guessedLetters.push(usGuess), 
+            Guesses--;
+        }  
+    };
+
+    // When the guesses get down to Zero, add 1 to the Losses, and reset the Guess fields.
+
+    if ( Guesses === 0 ) {
+        Loss++, 
+        Guesses = 9, 
+        cpRefresh(),
+        guessRefresh();
+    };
+
+    var guessR = guessedLetters.toString();
 
     // This is the display of the results
-
-    uGuess.insertAdjacentText("beforeend", usGuess + ", ");
+    uGuess.innerText = "Your Guesses So Far: " + guessR;
     wTally.textContent = "Wins: " + Win;
     lTally.textContent = "Losses: " + Loss;
-    gLeft.textContent = "Guesses Left: " - Left;
+    gLeft.textContent = "Guesses Left: " + Guesses;
+
+    // Cheat (Show the Computer's Guess)
+
+    cGuess.textContent = "Cheat: " + cpGuess;
 
     
 
 
 
     console.log("this is a text log");
+    console.log(key);
+    console.log(guessR);
 };
