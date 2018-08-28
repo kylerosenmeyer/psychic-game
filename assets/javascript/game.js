@@ -42,10 +42,6 @@ function guessRefresh() {
     guessedLetters= [];
 };
 
-// function guessRecord() {
-//     guessedLetters.toString();
-// };
-
 // This is the User's Guess
 
 document.onkeyup = function(event) {
@@ -63,13 +59,14 @@ document.onkeyup = function(event) {
 
         if ( usGuess === cpGuess ) {
             Win++,
+            Guesses = 9,
             cpRefresh(),
             guessRefresh();
 
         //Then, see if the user guess is in the guessedLetters array. If not, add it and subract a guess. 
 
-        } else if ( guessedLetters.indexOf(usGuess) === -1 ) {
-            guessedLetters.push(usGuess), 
+        } else if ( guessedLetters.indexOf(" " + usGuess + " ") === -1 ) {
+            guessedLetters.push(" " + usGuess + " "), 
             Guesses--;
         }  
     };
@@ -99,7 +96,7 @@ document.onkeyup = function(event) {
 
 
 
-    console.log("this is a text log");
-    console.log(key);
-    console.log(guessR);
+    // console.log("this is a text log");
+    // console.log(key);
+    // console.log(guessR);
 };

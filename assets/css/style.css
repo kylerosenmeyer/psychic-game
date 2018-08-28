@@ -1,7 +1,7 @@
 body {
     margin: auto;
     color: whitesmoke;
-    background-color: darkgray;
+    background-color: slategrey;
 }
 
 p {
@@ -22,4 +22,7 @@ h1 {
     float: left;
     margin: 10% 15% 25%;
     padding: 5%;
+    border-radius: 10px;
+    background-color: rgba(72, 127, 153, 0.75);
+    box-shadow: 20px 20px 20px rgb(0, 0, 0, 0.75);
 }
