@@ -1,3 +1,5 @@
+/*Tag Styling */
+
 body {
     margin: auto;
     color: whitesmoke;
@@ -17,6 +19,8 @@ h3 {
 h1 {
     font-size: 80px;
 }
+
+/*ID styling */
 
 #psy-game {
     float: left;
